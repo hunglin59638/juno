@@ -18,5 +18,4 @@ RUN mkdir -p /opt/juno && mkdir /data
 WORKDIR /opt/juno
 ADD . .
 RUN python3 setup.py install
-VOLUME [ "/opt/juno/juno/data" ] 
 WORKDIR /data
