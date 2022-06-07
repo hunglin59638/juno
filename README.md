@@ -70,7 +70,7 @@ juno simulate --update
 
 ## Python API
 
-### Use Case: Update NCBI RefSeq Assembly Summary and get it in local 
+### Use Case 1: Update NCBI RefSeq Assembly Summary and get it in local 
 
 ```
 from juno.data import Assembly
@@ -89,17 +89,20 @@ df.head()
 
 ```
 
-### Use Case: Download assembly genome  
+### Use Case 2: Download assembly genome  
 ```
 from juno.data import Assembly
 assembly = Assembly()
 genome_path = assembly.download("GCF_002004995.1", "/your/output/directory")
 ```
-### Use Case: Simulate reads from genome reference  
+### Use Case 3: Simulate reads from genome reference  
 ```
 from juno.simulator import Simulator
-sm = Simulator
+sm = Simulator()
+sm.generate(reference="/your/genome/fasta/path", out_dir="/your/output/directory", depth=200.0, platform="nanopore", compressed=True)
 ```
+tips:
+The genome fasta is supported by gz format. 
 
 ## Citation
 
