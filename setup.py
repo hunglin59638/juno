@@ -1,5 +1,27 @@
 # -*- coding: utf-8 -*-
+import os
+import atexit
 from setuptools import setup
+from setuptools.command.install import install as SetuptoolsInstall
+from juno.config import TOOL_DIR
+
+def _post_install():
+    print('Setting vdb-config')
+    vdb_config = TOOL_DIR / "vdb-config"
+    p = os.system(f"echo 'Aexyo' | {vdb_config} -i --interactive-mode textual")
+    if p:
+        raise Exception("Fail to config sra toolkit")
+    else:
+        config_file = f"{os.environ['HOME']}/.ncbi/user-settings.mkfg"
+        with open(config_file, "a") as f:
+            f.write('/LIBS/GUID = "347babaa-7242-4323-a9c9-e56c8d6d74ec"\n')
+        print("Success!!!")
+        
+class MakeInstall(SetuptoolsInstall):
+    def __init__(self, *args, **kwargs):
+        super(MakeInstall, self).__init__(*args, **kwargs)
+        atexit.register(_post_install)
+
 
 packages = \
 ['juno']
@@ -31,8 +53,10 @@ setup_kwargs = {
     'install_requires': install_requires,
     'entry_points': entry_points,
     'python_requires': '>=3.8,<4.0',
+    'cmdclass': {'install' : MakeInstall}
 }
 
 
 setup(**setup_kwargs)
+
 
