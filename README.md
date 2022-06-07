@@ -28,6 +28,13 @@ cd juno
 python3 setup.py install
 ```
 
+### Docker version
+`/data` is the entry point 
+```
+docker pull hunglin59638/juno:1.0.0
+docker run --rm -v /your/mount/point:/data juno sra -a $RUN_ACCESSION -o /data/outdir
+```
+
 ## CLI  
 ```
 juno -h 
