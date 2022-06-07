@@ -1,0 +1,6 @@
+**/__pycache__/
+.idea/
+.spyproject/
+.venv/
+poetry.lock
+run_juno.py
