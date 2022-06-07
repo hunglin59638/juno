@@ -39,15 +39,14 @@ def get_argument():
     subcmd = parser.add_subparsers(
         dest="subcmd", description="subcommands", metavar="SUBCOMMAND"
     )
-    
+
     sra = subcmd.add_parser("sra", help="Download reads from SRA database")
     sra.add_argument("--accession", "-a", help="SRA run accession, e.g. SRR19400588")
-    sra.add_argument("--out_dir", "-o", help="Output directory", type=check_file,
-                     required=True)
-    
-    simulator = subcmd.add_parser(
-        "simulate", help="Simulate reads by reference genome"
+    sra.add_argument(
+        "--out_dir", "-o", help="Output directory", type=check_file, required=True
     )
+
+    simulator = subcmd.add_parser("simulate", help="Simulate reads by reference genome")
     sm_input = simulator.add_mutually_exclusive_group()
     sm_input.add_argument(
         "--accession", "-a", help="RefSeq assembly accession, e.g. GCF_002004995.1"

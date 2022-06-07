@@ -48,31 +48,35 @@ Juno have two methods to generate reads fastq.
 
 If you want to develope genomic tools but has no real data, juno can generate the read fastq for your testing.
             """
-            )
+        )
         st.subheader("Feedback")
-        st.write("If you have any questions or idea for Juno, welcome to comment in the follwing.\ne.g. add options for metagenomic data")
+        st.write(
+            "If you have any questions or idea for Juno, welcome to comment in the follwing.\ne.g. add options for metagenomic data"
+        )
         with st.form("feedback"):
             person = st.text_input("Your mail address (Optional)", max_chars=100)
-            comment = st.text_area("Comment (Required)",  max_chars=5000)
-        
+            comment = st.text_area("Comment (Required)", max_chars=5000)
+
             submitted = st.form_submit_button("Submit")
             if submitted:
                 if comment:
-                    feedback_path = Path(__file__).parent/"data/feedback.txt"
+                    feedback_path = Path(__file__).parent / "data/feedback.txt"
                     person = person if person else "anonymous"
                     with open(f"{feedback_path}", "a") as f:
                         f.write(
-f"""{person}:
+                            f"""{person}:
 {time.asctime()}
 {comment}
 ==============================
 """
-                            )
+                        )
                     st.success("Submitted to Juno's author")
                 else:
                     st.error("The comment is required")
         st.subheader("Contact")
-        st.write("If you have any questions, welcome to contact us: hunglin59638@gmail.com ")
+        st.write(
+            "If you have any questions, welcome to contact us: hunglin59638@gmail.com "
+        )
 
     def read_simulator(self):
         st.title("Reads simulator")

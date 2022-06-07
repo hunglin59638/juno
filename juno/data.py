@@ -84,6 +84,7 @@ class Assembly:
         df_f.unlink(missing_ok=True)
         self.dataframe = self.__get_dataframe()
 
+
 class SRA:
     def __init__(self):
         self.faster_dump = TOOL_DIR / "fasterq-dump"
