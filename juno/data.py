@@ -10,9 +10,7 @@ import requests
 import pickle
 import subprocess
 import pandas as pd
-from ete3 import NCBITaxa
 from pathlib import Path
-from itertools import chain
 from pysradb.search import SraSearch
 from requests.adapters import HTTPAdapter
 
@@ -85,22 +83,6 @@ class Assembly:
         df_f = DATA_DIR / "assembly_summary.pkl"
         df_f.unlink(missing_ok=True)
         self.dataframe = self.__get_dataframe()
-
-    @staticmethod
-    def get_lineage(taxids):
-        ncbi = NCBITaxa()
-        lineage_taxids = ncbi.get_lineage_translator(taxids)
-
-        all_taxid = set(chain(*[taxids for taxids in lineage_taxids.values()]))
-        taxid2name = ncbi.get_taxid_translator(all_taxid)
-        taxid2rank = ncbi.get_rank(all_taxid)
-        for taxid in list(lineage_taxids):
-            lineage_taxids[taxid] = [
-                {"rank": taxid2rank[t], "name": taxid2name[t], "taxid": t}
-                for t in lineage_taxids[taxid]
-            ]
-        return lineage_taxids
-
 
 class SRA:
     def __init__(self):
