@@ -18,6 +18,7 @@ streamlit-aggrid = "^0.2.3"
 spyder-kernels = "2.1"
 poetry2setup = "^1.0.0"
 black = "^22.3.0"
+twine = "^4.0.1"
 
 [tool.poetry.scripts]
 juno = "juno.cli:main"
