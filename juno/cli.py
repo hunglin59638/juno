@@ -28,6 +28,17 @@ def get_argument():
                 return path
         raise TypeError("Please input path")
 
+    def parse_dir(path):
+        if not path:
+            raise TypeError("Please input path")
+
+        path = Path(path)
+        if path.exists():
+            raise FileExistsError("The directory path is exist")
+        else:
+            path.mkdir()
+        return path
+
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description="Juno: read data generator",
@@ -43,7 +54,7 @@ def get_argument():
     sra = subcmd.add_parser("sra", help="Download reads from SRA database")
     sra.add_argument("--accession", "-a", help="SRA run accession, e.g. SRR19400588")
     sra.add_argument(
-        "--out_dir", "-o", help="Output directory", type=check_file, required=True
+        "--out_dir", "-o", help="Output directory", type=parse_dir, required=True
     )
 
     simulator = subcmd.add_parser("simulate", help="Simulate reads by reference genome")
@@ -54,7 +65,7 @@ def get_argument():
     sm_input.add_argument(
         "--reference", "-r", help="Reference genome by fasta format", type=check_file
     )
-    simulator.add_argument("--out_dir", "-o", help="output directory", type=check_file)
+    simulator.add_argument("--out_dir", "-o", help="Output directory", type=parse_dir)
     simulator.add_argument(
         "--depth",
         "-d",
@@ -84,10 +95,12 @@ def get_argument():
 
 
 def main():
+    logging.getLogger().handlers.clear()
     logger = logging.getLogger(name="juno")
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter(
-        "[%(asctime)s] %(name)s: %(levelname)s: %(message)s", "%Y-%m-%d %H:%M:%S"
+        fmt="[%(asctime)s] %(name)s: %(levelname)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
     handler = logging.StreamHandler()
     handler.setFormatter(formatter)
@@ -123,7 +136,7 @@ def main():
     else:
         if args._get_kwargs()[0][1] is None:
             os.system(
-                f"streamlit run --theme.base dark --server.maxMessageSize 2048 {web.__file__}"
+                f"streamlit run --browser.serverAddress 0.0.0.0 --theme.base dark --server.maxMessageSize 2048 {web.__file__}"
             )
 
 
