@@ -14,7 +14,7 @@ from pathlib import Path
 from pysradb.search import SraSearch
 from requests.adapters import HTTPAdapter
 
-from juno.config import DATA_DIR, TOOL_DIR
+from juno.config import DATA_DIR, TOOL_DIR, _post_install
 
 
 class Assembly:
@@ -88,6 +88,8 @@ class Assembly:
 class SRA:
     def __init__(self):
         self.faster_dump = TOOL_DIR / "fasterq-dump"
+        if subprocess.call([self.faster_dump, "-h"], stdout=subprocess.DEVNULL):
+            _post_install()
 
     @staticmethod
     def search(organism, platform="oxford nanopore"):
