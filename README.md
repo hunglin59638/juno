@@ -15,9 +15,9 @@ Juno is also available as a public online resource: https://juno.hlin.tw
 ## Installation  
 
 ### Pypi version 
-https://pypi.org/project/juno/
+https://pypi.org/project/bio-juno/
 ```
-pip install juno
+pip install bio-juno
 ```
 
 ### Intall from source  
@@ -73,6 +73,15 @@ depth is greater than 200x is the better parameter for bacteria
 ### Update local NCBI RefSeq assembly summary  
 ```
 juno simulate --update
+```
+
+### Web-based app  
+```
+juno
+```
+The server port is 8051
+```
+http://localhost:8051
 ```
 
 ## Python API

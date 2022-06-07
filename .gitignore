@@ -7,3 +7,4 @@ run_juno.py
 dist
 juno.egg-info
 build
+bio_juno.egg-info/
