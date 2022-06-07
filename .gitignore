@@ -4,3 +4,6 @@
 .venv/
 poetry.lock
 run_juno.py
+dist
+juno.egg-info
+build
