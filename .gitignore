@@ -8,3 +8,6 @@ dist
 juno.egg-info
 build
 bio_juno.egg-info/
+build.sh
+record.txt
+bld.bat
